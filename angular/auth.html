@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Angular 权限管理的两种解决方案
+在做后台管理系统的时候，权限管理应该是必备的功能点了。这一节我们介绍两种方案来确定用户权限。
+">
+  <meta name="author" content="yanyi">
+  <meta name="keywords" content="angular typescript javascript 教程">
+  
+  <title>Angular 权限管理 - YanYi Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yanyi24.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Angular 权限管理">
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <h1 id="Angular-权限管理的两种解决方案"><a href="#Angular-权限管理的两种解决方案" class="headerlink" title="Angular 权限管理的两种解决方案"></a>Angular 权限管理的两种解决方案</h1><blockquote>
+<p>在做后台管理系统的时候，权限管理应该是必备的功能点了。这一节我们介绍两种方案来确定用户权限。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>首先，我们面板是这个样子，先让大家有一个基础印象：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152542689.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbnlpMjQ=,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>首先我们通过 <code>cli</code>工具新建了一个 <code>heroes</code>模块，所有工作我们都将在这个模块中完成；</li>
+<li>其次新建了 <code>heroes-add</code>、 <code>heroes-list</code>、 <code>heroes-login</code>、 <code>heroes-modify</code>四个页面模块，来分别实现不同的功能；</li>
+<li>最后通过子路由的方式配置了项目的路由信息，以便让项目跑起来。</li>
+<li>封装一些常用的方法为服务，以便多处使用：</li>
+<li>添加请求拦截器，为已登录用户每次的请求头添加 <code>token</code>。（拦截器请参照7.2节介绍）</li>
+</ol>
+<h2 id="使用路由守卫控制权限"><a href="#使用路由守卫控制权限" class="headerlink" title="使用路由守卫控制权限"></a>使用路由守卫控制权限</h2><p>目前我们项目的状态是：无论用户是否登录，或者登录用户的权限如何，都能直接进行新增、修改、删除等操作。显然，这不是我们想要的。</p>
+<p>所以，我们可以通过路由守卫来控制权限。</p>
+<p>我们先给角色分配一下权限：</p>
+<ul>
+<li>superadmin: 拥有所有权限；</li>
+<li>admin: 只有修改权限，没有删除、新增权限；</li>
+<li>user: 只有查看权限，没有操作权限。</li>
+</ul>
+<p>给路由配置添加角色(<code>roles</code>数组)：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> routes: Routes = [<br>  &#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;heroes&#x27;</span>,<br>    <span class="hljs-attr">component</span>: HeroesComponent,<br>    <span class="hljs-attr">children</span>: [<br>      &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;list&#x27;</span>, <span class="hljs-attr">component</span>: HeroesListComponent&#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;login&#x27;</span>,<br>        <span class="hljs-attr">loadChildren</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./heroes-login/heroes-login.module&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> m.HeroesLoginModule),<br>        <span class="hljs-attr">canActivate</span>: [LoginAuthGuard]<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;add&#x27;</span>,<br>        <span class="hljs-attr">loadChildren</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./heroes-add/heroes-add.module&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> m.HeroesAddModule),<br>        <span class="hljs-attr">canActivate</span>: [AuthGuard],<br>        <span class="hljs-attr">data</span>: &#123;<span class="hljs-attr">roles</span>: [<span class="hljs-string">&#x27;superadmin&#x27;</span>]&#125;<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;modify/:id&#x27;</span>,<br>        <span class="hljs-attr">loadChildren</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./heroes-modify/heroes-modify.module&#x27;</span>).then(<span class="hljs-function"><span class="hljs-params">m</span> =&gt;</span> m.HeroesModifyModule),<br>        <span class="hljs-attr">canActivate</span>: [AuthGuard],<br>        <span class="hljs-attr">data</span>: &#123;<span class="hljs-attr">roles</span>: [<span class="hljs-string">&#x27;superadmin&#x27;</span>, <span class="hljs-string">&#x27;admin&#x27;</span>]&#125;<br>      &#125;,<br>      &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-attr">redirectTo</span>: <span class="hljs-string">&#x27;list&#x27;</span>, <span class="hljs-attr">pathMatch</span>: <span class="hljs-string">&#x27;full&#x27;</span> &#125;<br>    ]<br>  &#125;<br>];<br></code></pre></td></tr></table></figure>
+
+<p>新建一个 <code>auth</code>守卫</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ng g g demos/heroes/guards/auth<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// auth.guard.ts</span><br><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthGuard</span> <span class="hljs-title">implements</span> <span class="hljs-title">CanActivate</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> userServe: UserService,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> router: Router,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> accountServe: AccoutService,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> windowServe: WindowService</span></span><br><span class="hljs-params"><span class="hljs-function">  </span>)</span> &#123;&#125;<br>  canActivate(route: ActivatedRouteSnapshot, <span class="hljs-attr">state</span>: RouterStateSnapshot): Observable&lt;<span class="hljs-built_in">boolean</span>&gt; &#123;<br>    <span class="hljs-comment">// 获取即将进入路由的角色配置</span><br>    <span class="hljs-keyword">const</span> roles: <span class="hljs-built_in">string</span>[] = route.data.roles;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.userServe.user$.pipe(<br>      switchMap(<span class="hljs-function"><span class="hljs-params">user</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 判断用户是否登录</span><br>        <span class="hljs-keyword">if</span> (user) &#123;<br>          <span class="hljs-comment">// 匹配用户角色与路由权限配置</span><br>          <span class="hljs-keyword">if</span> (roles.includes(user.role)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">of</span>(<span class="hljs-literal">true</span>);<br>          &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-built_in">this</span>.windowServe.alert(<span class="hljs-string">&#x27;没有权限&#x27;</span>);<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">of</span>(<span class="hljs-literal">false</span>);<br>          &#125;<br>        &#125;<br>        <span class="hljs-comment">// 未登录，去登录，拦截进入下个路由</span><br>        <span class="hljs-built_in">this</span>.accountServe.redirectTo = state.url;<br>        <span class="hljs-built_in">this</span>.windowServe.alert(<span class="hljs-string">&#x27;请先登录&#x27;</span>);<br>        <span class="hljs-built_in">this</span>.router.navigateByUrl(<span class="hljs-string">&#x27;/heroes/login&#x27;</span>).then();<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">of</span>(<span class="hljs-literal">false</span>);<br>      &#125;)<br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就能大概实现拦截功能：</p>
+<p>tips: 艾科–user  莫甘娜–superadmin  卡特–admin</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152613946.gif#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>但是你会发现，我们还有个删除功能没做权限管理。<br>一般情况下，删除应该是不会跳转路由的，所以，我们需要另辟蹊径来处理。</p>
+<h2 id="通过指令控制权限"><a href="#通过指令控制权限" class="headerlink" title="通过指令控制权限"></a>通过指令控制权限</h2><p>我们想要的结果其实就是：根据角色，页面上只展示有权限的按钮或其他跟权限有关的入口。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ng g d demos/heroes/directives/auth<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// auth.directive.ts</span><br><span class="hljs-keyword">import</span> &#123;Directive, Input, OnChanges, SimpleChanges, TemplateRef, ViewContainerRef&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@angular/core&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;UserService&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/user.service&#x27;</span>;<br><br><span class="hljs-meta">@Directive</span>(&#123;<br>  <span class="hljs-attr">selector</span>: <span class="hljs-string">&#x27;[appAuth]&#x27;</span><br>&#125;)<br><span class="hljs-comment">// 实现 OnChanges 接口</span><br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthDirective</span> <span class="hljs-title">implements</span> <span class="hljs-title">OnChanges</span></span>&#123;<br>  <span class="hljs-comment">// 输入属性传值,获取有权限的角色</span><br>  <span class="hljs-meta">@Input</span>(<span class="hljs-string">&#x27;appAuth&#x27;</span>) roles: <span class="hljs-built_in">string</span>[] = [];<br>  hasView = <span class="hljs-literal">false</span>;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> templateRef: TemplateRef&lt;<span class="hljs-built_in">any</span>&gt;,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> viewContainer: ViewContainerRef,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> userServe: UserService</span></span><br><span class="hljs-params"><span class="hljs-function">  </span>)</span> &#123;&#125;<br>  <span class="hljs-comment">// 在 ngOnChanges 阶段才能拿到输入属性的传值</span><br>  ngOnChanges(changes: SimpleChanges): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.roles.length) &#123;<br>      <span class="hljs-built_in">this</span>.userServe.user$.subscribe(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 没匹配到角色</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.roles.includes(res?.role))&#123;<br>          <span class="hljs-built_in">this</span>.createView();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-built_in">this</span>.viewContainer.clear();<br>          <span class="hljs-built_in">this</span>.hasView = <span class="hljs-literal">false</span>;<br>        &#125;<br>      &#125;);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-built_in">this</span>.createView();<br>    &#125;<br>  &#125;<br>  <span class="hljs-comment">// 创建视图</span><br>  <span class="hljs-keyword">private</span> createView(): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-built_in">this</span>.viewContainer.createEmbeddedView(<span class="hljs-built_in">this</span>.templateRef);<br>    <span class="hljs-built_in">this</span>.hasView = <span class="hljs-literal">true</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用指令：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152650484.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbnlpMjQ=,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>页面表现：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152703701.gif#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>至此，我们就实现了通过角色来进行权限管理的全部功能。</p>
+<h2 id="通过动态配置权限实现权限管理"><a href="#通过动态配置权限实现权限管理" class="headerlink" title="通过动态配置权限实现权限管理"></a>通过动态配置权限实现权限管理</h2><p>在实际工作中，我们可能还会遇到这样的情况：用户的角色是不固定的，所拥有的权限也是动态配置的。这样的情况，我们如果采用上面的方式来做权限，那势必会经常修改我们页面上所配置的角色。所以，针对这样的情况就要采取另一种方式。</p>
+<p>我们打算通过<strong>页面名</strong>与后台传入的权限进行 <code>view</code>、<code>new</code>、<code>delete</code>、<code>edit</code>等相应的权限控制。</p>
+<p>为了演示，我们将会新建四个 <code>normal</code>、 <code>skill</code>、 <code>grade</code>、 <code>level</code>组件。<code>normal</code>是没有被权限控制的，所有用户都可以访问。</p>
+<p>假如每个登录用户信息是这样的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;卡特&quot;</span>, <br>  <span class="hljs-attr">&quot;rights&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;skill&quot;</span>: [<span class="hljs-string">&quot;edit&quot;</span>, <span class="hljs-string">&quot;new&quot;</span>],<br>    <span class="hljs-attr">&quot;grade&quot;</span>: [<span class="hljs-string">&quot;view&quot;</span>]<br>  &#125;,<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面表示：用户‘卡特’没有访问 <code>level</code>页面的权限，可以在 <code>skill</code>页面编辑、新建，在 <code>grade</code>页面只能查看。</p>
+<p>我们还是通过结构性指令来实现，如果没有权限，完全不显示对应入口的功能。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ng g d demos/heroes/directives/rights<br></code></pre></td></tr></table></figure>
+
+<p>对应需要控制的页面入口，我们通过传入<strong>页面名</strong>进行控制：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152719119.jpg#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>页面中需要控制的操作入口，通过传入<strong>操作类型</strong>来进行控制：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152729176.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhbnlpMjQ=,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>方案确定，只差实现指令：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// rights.directive.ts</span><br><span class="hljs-keyword">import</span> &#123;Directive, Input, OnChanges, SimpleChanges, TemplateRef, ViewContainerRef&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@angular/core&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123;UserService&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../services/user.service&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; Router&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@angular/router&#x27;</span>;<br><br><span class="hljs-meta">@Directive</span>(&#123;<br>  <span class="hljs-attr">selector</span>: <span class="hljs-string">&#x27;[appRights]&#x27;</span><br>&#125;)<br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RightsDirective</span> <span class="hljs-title">implements</span> <span class="hljs-title">OnChanges</span></span>&#123;<br>  <span class="hljs-comment">// 输入属性传值,获取配置</span><br>  <span class="hljs-meta">@Input</span>(<span class="hljs-string">&#x27;appRights&#x27;</span>) rights = <span class="hljs-string">&#x27;&#x27;</span>;<br>  hasView = <span class="hljs-literal">false</span>;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> templateRef: TemplateRef&lt;<span class="hljs-built_in">any</span>&gt;,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> viewContainer: ViewContainerRef,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> userServe: UserService,</span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-keyword">private</span> router: Router</span></span><br><span class="hljs-params"><span class="hljs-function">  </span>)</span> &#123;&#125;<br><br>  ngOnChanges(changes: SimpleChanges): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-keyword">const</span> pageName = <span class="hljs-built_in">this</span>.getPageName(<span class="hljs-built_in">this</span>.router.url);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.rights) &#123;<br>      <span class="hljs-built_in">this</span>.userServe.user$.subscribe(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (res?.rights) &#123;<br>          <span class="hljs-keyword">if</span> (<br>            res.rights[<span class="hljs-built_in">this</span>.rights] || <span class="hljs-comment">/* 匹配页面入口 */</span><br>            (res.rights[pageName] &amp;&amp; res.rights[pageName].includes(<span class="hljs-built_in">this</span>.rights)) <span class="hljs-comment">/* 匹配页面操作入口 */</span><br>          ) &#123;<br>            <span class="hljs-built_in">this</span>.createView();<br>          &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-built_in">this</span>.clearView();<br>        &#125;<br>      &#125;);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-built_in">this</span>.clearView();<br>    &#125;<br>  &#125;<br>  <span class="hljs-comment">// 创建视图</span><br>  <span class="hljs-keyword">private</span> createView(): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-built_in">this</span>.viewContainer.createEmbeddedView(<span class="hljs-built_in">this</span>.templateRef);<br>    <span class="hljs-built_in">this</span>.hasView = <span class="hljs-literal">true</span>;<br>  &#125;<br>  <span class="hljs-comment">// 清除视图</span><br>  <span class="hljs-keyword">private</span> clearView(): <span class="hljs-built_in">void</span> &#123;<br>    <span class="hljs-built_in">this</span>.viewContainer.clear();<br>    <span class="hljs-built_in">this</span>.hasView = <span class="hljs-literal">false</span>;<br>  &#125;<br>  <span class="hljs-comment">// 通过URL获取页面名</span><br>  <span class="hljs-keyword">private</span> getPageName(url: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> &#123;<br>    <span class="hljs-keyword">const</span> str = url.split(<span class="hljs-string">&#x27;/&#x27;</span>).pop();<br>    <span class="hljs-keyword">if</span> (str.includes(<span class="hljs-string">&#x27;?&#x27;</span>)) &#123;<br>      <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;?&#x27;</span>)[<span class="hljs-number">0</span>];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (str.includes(<span class="hljs-string">&#x27;#&#x27;</span>))&#123;<br>      <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&#x27;#&#x27;</span>)[<span class="hljs-number">0</span>];<br>    &#125;<br>    <span class="hljs-keyword">return</span> str;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>来看效果：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152745752.gif#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>想要的效果已经实现，通过页面名来匹配可能不是最好的解决方式，因为这样必须要求<strong>页面名是唯一的</strong>，如有更好的解决方案，欢迎私信~</p>
+<p>其实这里还遇到一个问题：</p>
+<p>权限管理必定会配合着路由懒加载，但是懒加载的组件是不需要在任何模块中 <code>declarations</code>数组中引入的，如果没有引入组件，那么指令就不会在子模块中的组件中生效，会报错。<br>所以，最后的解决方式就是在提供指令的模块中同时引入懒加载路由的组件。不用担心，懒加载依然有意义。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210528152800762.jpg#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><em><strong>1. 在比较固定角色的情况下，采取“路由守卫 + 结构性指令”方案是不错的选择，相反的话第二种方式则更推荐；<br>2. 权限管理必定会配合着路由懒加载。</strong></em></p>
+<p>权限管理的处理方式可能还有其他方案，如果你的更好，请告诉我~</p>
+<hr>
+
+<p><em><strong>欢迎关注我的公众号，公众号将第一时间更新angular教程：</strong></em><br><img src="https://img-blog.csdnimg.cn/img_convert/2ed94c3f0147a84d6e24a0625dacbb40.png#pic_center#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+
+
+  
+</article>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
