@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="angular从零开始教程">
+  <meta name="author" content="yanyi">
+  <meta name="keywords" content="angular typescript javascript 教程">
+  
+  <title>Angular绑定属性、class、style、事件 - YanYi Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"yanyi24.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"0167684c7ab11ffb3863a4494ec85521","google":"UA-127609436-1","gtag":"G-B4P8W6VK5B","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Yan Yi Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Angular绑定属性、class、style、事件">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-16 13:15" pubdate>
+        2021年6月16日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Angular绑定属性、class、style、事件</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>这一节，我们主要讲angular的模版表达式，以及属性、class、style、事件的绑定～</p>
+</blockquote>
+<h2 id="插值与模板表达式"><a href="#插值与模板表达式" class="headerlink" title="插值与模板表达式"></a>插值与模板表达式</h2><p>所谓 “插值” ，就是指将表达式嵌入到标记文本中。 默认情况下，插值会用双花括号 <code>&#123;&#123;  &#125;&#125; </code>作为分隔符。（跟vue一致）</p>
+<p>可以有如下几种情况：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">//src/app/app.component.ts</span><br>...<br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123;<br>  title = <span class="hljs-string">&#x27;Tour of Heroes&#x27;</span>;<br>  myHero = <span class="hljs-string">&#x27;Windstorm&#x27;</span>;<br>  itemImageUrl = <span class="hljs-string">&#x27;./image/1.png&#x27;</span>;<br>  getVal(): <span class="hljs-built_in">number</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;<br>  &#125;<br>&#125;<br><span class="hljs-comment">//src/app/app.component.html</span><br>...<br>&lt;!-- 直接使用 --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>My favorite hero is: &#123;&#123;myHero&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br>&lt;!-- 调用方法 --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Value: &#123;&#123; getVal() &#125;&#125;/div&gt;</span><br>&lt;!-- 用作运算--&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The sum of 1 + 1 is &#123;&#123;1 + 1&#125;&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br>&lt;!-- 结合使用 --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123;price * 0.7 + getVal()&#125;&#125;.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br>&lt;!-- 绑定属性--&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&#123;&#123;itemImageUrl&#125;&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><em><strong>当使用模板表达式时，请遵循下列指南：</strong></em></p>
+<ul>
+<li>最好是简单的运算，以便代码能够迅速执行；</li>
+<li>不能使用那些具有或可能引发副作用的 JavaScript 表达式：<ul>
+<li>赋值（=, +=, -=, …)）</li>
+<li>new、typeof、instanceof 等运算符</li>
+<li>自增和自减运算符：++ 和 –</li>
+<li>不支持位运算，比如 | 和 &amp;</li>
+</ul>
+</li>
+</ul>
+<h2 id="属性绑定"><a href="#属性绑定" class="headerlink" title="属性绑定"></a>属性绑定</h2><p>属性绑定形式大概有三种方式：</p>
+<ul>
+<li>使用[]: [property]=”变量”</li>
+<li>使用bind-: bind-src=”变量”</li>
+<li>插值表达式：src=”“</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// src/app/app.component.ts </span><br>... <br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123; <br>  picUrl = <span class="hljs-string">&#x27;./image/1.png&#x27;</span>; <br>  picAlt = <span class="hljs-string">&#x27;pic goode&#x27;</span>;<br>  pic = &#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;./image/1.png&#x27;</span>,<br>    <span class="hljs-attr">alt</span>: <span class="hljs-string">&#x27;pic goode&#x27;</span><br>  &#125;;<br>  isUnchanged: <span class="hljs-literal">true</span>;<br>  customTitle: <span class="hljs-string">&#x27;custom title&#x27;</span>;<br>&#125;<br><br><span class="hljs-comment">// src/app/app.component.html</span><br>...<br><span class="hljs-comment">// 使用 []</span><br>&lt;img [src]=<span class="hljs-string">&quot;picUrl&quot;</span> [alt]=<span class="hljs-string">&quot;picAlt&quot;</span> /&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> [<span class="hljs-attr">disabled</span>]=<span class="hljs-string">&quot;isUnchanged&quot;</span>&gt;</span>Disabled Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="hljs-comment">/****************** 特别提示 start *********************/</span><br><span class="hljs-comment">// 这样会报错</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">colspan</span>=<span class="hljs-string">&quot;&#123;&#123;1 + 1&#125;&#125;&quot;</span>&gt;</span>Three-Four<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span> <br><span class="hljs-comment">// 正确写法</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">td</span> [<span class="hljs-attr">colSpan</span>]=<span class="hljs-string">&quot;1 + 1&quot;</span>&gt;</span>Three-Four<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span></span><br><span class="hljs-comment">/****************** 特别提示 end **********************/</span><br><span class="hljs-comment">// 使用bind</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">bind-src</span>=<span class="hljs-string">&quot;picUrl&quot;</span> <span class="hljs-attr">bind-alt</span>=<span class="hljs-string">&quot;picAlt&quot;</span> /&gt;</span></span><br><span class="hljs-comment">// 插值</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&#123;&#123; pic.url &#125;&#125;&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&#123;&#123; pic.alt &#125;&#125;&quot;</span> /&gt;</span></span><br><span class="hljs-comment">// 绑定自定义属性</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> [<span class="hljs-attr">attr.data-title</span>]=<span class="hljs-string">&quot;customTitle&quot;</span>&gt;</span>some words<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> [<span class="hljs-attr">attr.title</span>]=<span class="hljs-string">&quot;customTitle&quot;</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p><em>虽然上面三种方式都可以绑定，但是建议在项目中采取其中一种形式，保持代码的统一性也很重要哦～</em></p>
+<h2 id="class绑定"><a href="#class绑定" class="headerlink" title="class绑定"></a>class绑定</h2><h3 id="绑定单个class"><a href="#绑定单个class" class="headerlink" title="绑定单个class"></a>绑定单个class</h3><p>语法：<code>[class.ClassName]=&quot;boolean | undefined | null&quot;</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">//src/app/app.component.ts </span><br>... <br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123; <br>  theme = <span class="hljs-string">&#x27;primary&#x27;</span>;<br>  isSuccess = <span class="hljs-literal">true</span>;<br>&#125; <br><span class="hljs-comment">//src/app/app.component.html </span><br>... <br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-keyword">class</span>.btn-primary]=<span class="hljs-string">&quot;theme === &#x27;primary&#x27;&quot;</span>&gt;Primary&lt;/div&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class.btn-secondary</span>]=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>secondary<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class.btn-success</span>]=<span class="hljs-string">&quot;isSuccess&quot;</span>&gt;</span>success<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class.btn-danger</span>]=<span class="hljs-string">&quot;&#x27;啦啦啦&#x27;&quot;</span>&gt;</span>danger<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class.btn-danger</span>]=<span class="hljs-string">&quot;0&quot;</span>&gt;</span>danger<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class.btn-danger</span>]=<span class="hljs-string">&quot;undefined&quot;</span>&gt;</span>danger<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h3 id="绑定多个class"><a href="#绑定多个class" class="headerlink" title="绑定多个class"></a>绑定多个class</h3><p>语法：<code>[class]=&quot;classExpression&quot;</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// src/app/app.component.ts </span><br>... <br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123; <br>  btnCls = <span class="hljs-string">&#x27;btn btn-primary&#x27;</span>; <span class="hljs-comment">// 字符串，空格分隔</span><br>  btnCls2 = [<span class="hljs-string">&#x27;btn&#x27;</span>, <span class="hljs-string">&#x27;btn-success&#x27;</span>]; <br>  btnCls3 = &#123;<br>    <span class="hljs-attr">btn</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-string">&#x27;btn-info&#x27;</span>: <span class="hljs-literal">true</span><br>  &#125;;<br>&#125; <br><span class="hljs-comment">// src/app/app.component.html </span><br>...<br>&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-class"><span class="hljs-keyword">class</span>]</span>=<span class="hljs-string">&quot;btnCls&quot;</span>&gt;btnCls&lt;/div&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class</span>]=<span class="hljs-string">&quot;btnCls2&quot;</span>&gt;</span>btnCls2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">class</span>]=<span class="hljs-string">&quot;btnCls3&quot;</span>&gt;</span>btnCls3<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;!-- 也可以用内置指令ngClass --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">ngClass</span>]=<span class="hljs-string">&quot;btnCls&quot;</span>&gt;</span>btnCls<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">ngClass</span>]=<span class="hljs-string">&quot;btnCls2&quot;</span>&gt;</span>btnCls2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn&quot;</span> [<span class="hljs-attr">ngClass</span>]=<span class="hljs-string">&quot;btnCls3&quot;</span>&gt;</span>btnCls3<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h2 id="属性样式"><a href="#属性样式" class="headerlink" title="属性样式"></a>属性样式</h2><h3 id="单一样式绑定"><a href="#单一样式绑定" class="headerlink" title="单一样式绑定"></a>单一样式绑定</h3><p>语法： <code>[style.width]=&quot;string | undefined | null&quot;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html">// src/app/app.component.html <br>... <br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> [<span class="hljs-attr">style.color</span>]=<span class="hljs-string">&quot;&#x27;#f60&#x27;&quot;</span>&gt;</span>some words<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> [<span class="hljs-attr">style.height</span>]=<span class="hljs-string">&quot;&#x27;50px&#x27;&quot;</span> [<span class="hljs-attr">style.border</span>]=<span class="hljs-string">&quot;&#x27;1px solid&#x27;&quot;</span>&gt;</span>属性值中带单位px<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> [<span class="hljs-attr">style.height.px</span>]=<span class="hljs-string">&quot;50&quot;</span> [<span class="hljs-attr">style.border</span>]=<span class="hljs-string">&quot;&#x27;1px solid&#x27;&quot;</span>&gt;</span>单位px不在属性值中<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="多重样式绑定"><a href="#多重样式绑定" class="headerlink" title="多重样式绑定"></a>多重样式绑定</h3><p>语法：<code>[style]=&quot;styleExpression&quot;</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// src/app/app.component.ts </span><br>... <br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123;<br>  style1 = <span class="hljs-string">&#x27;width: 200px;height: 50px;text-align: center;border: 1px solid;&#x27;</span>;<br>  style2 = &#123;<br>    <span class="hljs-attr">width</span>: <span class="hljs-string">&#x27;200px&#x27;</span>,<br>    <span class="hljs-attr">height</span>: <span class="hljs-string">&#x27;50px&#x27;</span>,<br>    <span class="hljs-string">&#x27;text-align&#x27;</span>: <span class="hljs-string">&#x27;center&#x27;</span>,<br>    <span class="hljs-attr">border</span>: <span class="hljs-string">&#x27;1px solid&#x27;</span><br>  &#125;;<br>&#125; <br><span class="hljs-comment">// src/app/app.component.html </span><br>... <br>&lt;p [style]=<span class="hljs-string">&quot;style1&quot;</span>&gt;style1&lt;/p&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> [<span class="hljs-attr">style</span>]=<span class="hljs-string">&quot;style2&quot;</span>&gt;</span>style2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="hljs-comment">/******提示：不能使用数组形式的参数 style3 = [&#x27;width&#x27;, &#x27;200px&#x27;];******/</span><br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/guide/template-syntax#styling-precedence">样式优先级</a></p>
+<ul>
+<li>某个类或样式绑定越具体，它的优先级就越高</li>
+<li>绑定总是优先于静态属性</li>
+</ul>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p>语法：<img src="https://img-blog.csdnimg.cn/img_convert/188d0795bd4afd938e5e5801d6893957.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// src/app/app.component.ts </span><br>... <br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppComponent</span> </span>&#123; <br>  <span class="hljs-function"><span class="hljs-title">onClick</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;onClick&#x27;</span>);<br>  &#125;;<br>  <span class="hljs-function"><span class="hljs-title">onClick2</span>(<span class="hljs-params">event: MouseEvent</span>)</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;onClick&#x27;</span>, event.target);<br>  &#125;;<br>&#125; <br><span class="hljs-comment">// src/app/app.component.html </span><br>...<br>&lt;!-- 不同于vue,这里需要用()来调用函数 --&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">&quot;onClick()&quot;</span>&gt;</span>btn<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;!-- 这里一定是$event,就是原生的事件对象--&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> (<span class="hljs-attr">click</span>)=<span class="hljs-string">&quot;onClick2($event)&quot;</span>&gt;</span>btn2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;!-- 绑定方法的等号后面可以写任意js代码--&gt; <br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> ((<span class="hljs-attr">click</span>)=<span class="hljs-string">&quot;$event.preventDefault();text = &#x27;a&#x27;;&quot;</span>&gt;</span>btn2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p><em><strong>至此，我们常用的插值、模版表达式与绑定属性介绍完毕，总的来说还算简单，唯一需要注意的就是保持代码格式统一，不然显得很乱。</strong></em></p>
+<p><em>还是老样子，欢迎关注我的公众号，<strong>公众号会最先更新</strong></em></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2ed94c3f0147a84d6e24a0625dacbb40.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/angular/">angular</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/binding/">binding</a>
+                    
+                      <a class="hover-with-bg" href="/tags/property/">property</a>
+                    
+                      <a class="hover-with-bg" href="/tags/class/">class</a>
+                    
+                      <a class="hover-with-bg" href="/tags/style/">style</a>
+                    
+                      <a class="hover-with-bg" href="/tags/event/">event</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/angular/ngif-ngswitch-ngfor/">
+                        <span class="hidden-mobile">Angular ngif ngswitch ngfor</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+    
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        蜀ICP备16026098号
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0167684c7ab11ffb3863a4494ec85521";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'UA-127609436-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B4P8W6VK5B"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-B4P8W6VK5B');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

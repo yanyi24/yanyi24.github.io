@@ -14,13 +14,13 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="Animate–JS快速改变页面数字变化过程动画
-通过定时器，快速修改页面上数字，页面初始化时常用功能。
+  <meta name="description" content="
+本文介绍angular的环境搭建，以及配置bootstrap~
 ">
   <meta name="author" content="yanyi">
   <meta name="keywords" content="angular typescript javascript 教程">
   
-  <title>Number Animate--JS快速改变页面数字变化过程动画 - YanYi Blog</title>
+  <title>Angular 环境搭建 - YanYi Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Number Animate--JS快速改变页面数字变化过程动画">
+            <span class="h2" id="subtitle" title="Angular 环境搭建">
               
             </span>
 
@@ -175,8 +175,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-06-11 17:52" pubdate>
-        2021年6月11日 下午
+      <time datetime="2021-06-16 13:00" pubdate>
+        2021年6月16日 下午
       </time>
     </span>
   
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      401 字
+      619 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      8
        分钟
     </span>
   
@@ -227,26 +227,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Number Animate--JS快速改变页面数字变化过程动画</h1>
+            <h1 style="display: none">Angular 环境搭建</h1>
             
             <div class="markdown-body">
-              <h1 id="Animate–JS快速改变页面数字变化过程动画"><a href="#Animate–JS快速改变页面数字变化过程动画" class="headerlink" title="Animate–JS快速改变页面数字变化过程动画"></a>Animate–JS快速改变页面数字变化过程动画</h1><blockquote>
-<p>通过定时器，快速修改页面上数字，页面初始化时常用功能。</p>
+              <blockquote>
+<p>本文介绍angular的环境搭建，以及配置bootstrap~</p>
 </blockquote>
 <span id="more"></span>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 判断是否是数字</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNumeric</span>(<span class="hljs-params">n</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> !<span class="hljs-built_in">isNaN</span>(<span class="hljs-built_in">parseFloat</span>(n)) &amp;&amp; <span class="hljs-built_in">isFinite</span>(n);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="1-安装全局ANGULAR-CLI"><a href="#1-安装全局ANGULAR-CLI" class="headerlink" title="1.安装全局ANGULAR CLI"></a>1.安装全局ANGULAR CLI</h2><blockquote>
+<p>默认已经安装node环境</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g @angular/cli@10  // windows<br>sudo npm install -g @angular/cli@10  // macOS<br></code></pre></td></tr></table></figure>
+<p>安装成功后执行ng –version，出现下图则表示安装成功<br><img src="https://img-blog.csdnimg.cn/img_convert/2324106f9ce87de7a85357841512b658.png#pic_center" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-创建项目"><a href="#2-创建项目" class="headerlink" title="2.创建项目"></a>2.创建项目</h2><p>确定一个你项目需要安装的目录，用终端打开文件夹，执行ng new hero（hero是你的项目名称）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">ng new &lt;name&gt; [options]<br>ng n &lt;name&gt; [options] // 简写<br><br>// options具体参数详见 https://angular.cn/cli/new<br>// 这里给出我这个项目的ng new指令<br>ng new hero --routing=<span class="hljs-literal">true</span> --style=scss --skipTests<br>// 含义是，添加routing路由文件，采用scss作为默认预处理样式，不安装单元测试文件<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment">*判断一个数有几位小数</span><br><span class="hljs-comment">*<span class="hljs-doctag">@param <span class="hljs-type">&#123;number&#125;</span> <span class="hljs-variable">number</span></span></span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDecimalPoint</span>(<span class="hljs-params">number</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span>(!isNumeric(number)) &#123;<span class="hljs-keyword">return</span>;&#125;<br>  <span class="hljs-keyword">var</span> num = <span class="hljs-built_in">parseFloat</span>(number);<br>  <span class="hljs-keyword">var</span> str = num.toString();<br>  <span class="hljs-keyword">var</span> x = str.indexOf(<span class="hljs-string">&#x27;.&#x27;</span>); <br>  <span class="hljs-keyword">if</span> (x &gt; -<span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">return</span> str.length - x - <span class="hljs-number">1</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>执行了上面指令，cli将自动安装依赖到你的项目。项目默认结构如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/26b25206e28e070e400b3cd97dc97d01.png#pic_center" srcset="/img/loading.gif" lazyload><br>为了方便开发，我们先修改下package.json 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">// <span class="hljs-string">&quot;scripts&quot;</span>下<span class="hljs-string">&quot;start&quot;</span>添加 --open，当启动项目时将自动在浏览器打开<br><span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;ng serve --open&quot;</span><br></code></pre></td></tr></table></figure>
+<p><strong>启动项目</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm run start<br></code></pre></td></tr></table></figure>
+<p>如果一切正常，浏览器将正常打开<a target="_blank" rel="noopener" href="http://localhost:4200/">http://localhost:4200/</a></p>
+<h2 id="3-安装BOOTSTRAP"><a href="#3-安装BOOTSTRAP" class="headerlink" title="3.安装BOOTSTRAP"></a>3.安装BOOTSTRAP</h2><p>为了减少样式的书写，本项目将使用bootstrap(v4.5.3)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">// 因为bootstrap依赖jquery跟popper.js,所以安装的时候一并安装<br><br>npm install bootstrap jquery popper.js -S<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 快速改变页面数字，数字增加过程</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;string&#125;</span> </span>selector 可以被jquery选中的选择器（标签内不应有除了数字以外其他内容）</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;Object&#125;</span> </span>param1 </span><br><span class="hljs-comment"> * &#123;</span><br><span class="hljs-comment"> *    duration: 数字变化过程的时间 默认：2000sm,</span><br><span class="hljs-comment"> *    timeStep: 变化间隔时间 默认: 50ms,</span><br><span class="hljs-comment"> *    start: 数字变化起始值,</span><br><span class="hljs-comment"> *    end: 数字变化最终值</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ChangeDomNum</span>(<span class="hljs-params">selector, _ref</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> start = _ref.start,<br>      end = _ref.end,<br>      duration = _ref.duration,<br>      timeStep = _ref.timeStep;<br><br>  <span class="hljs-keyword">if</span> (<br>    (duration &amp;&amp; !isNumeric(duration)) ||<br>    (timeStep &amp;&amp; !isNumeric(timeStep)) ||<br>    !isNumeric(start) ||<br>    !isNumeric(end) ||<br>    start === end<br>  ) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    duration = <span class="hljs-built_in">parseFloat</span>(duration);<br>    timeStep = <span class="hljs-built_in">parseFloat</span>(timeStep);<br>    start = <span class="hljs-built_in">parseFloat</span>(start);<br>    end = <span class="hljs-built_in">parseFloat</span>(end);<br>  &#125;<br><br>  <span class="hljs-keyword">var</span> timeStepRel = timeStep || <span class="hljs-number">50</span>;<br>  <span class="hljs-keyword">var</span> startRel = start || <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">var</span> duringRel = duration || <span class="hljs-number">2000</span>;<br>  <span class="hljs-keyword">var</span> result = startRel;<br>  <span class="hljs-keyword">var</span> decimalPonit = <span class="hljs-built_in">Math</span>.max(getDecimalPoint(end), getDecimalPoint(start)); <span class="hljs-comment">// 几位小数</span><br><br>  <span class="hljs-keyword">var</span> timeCount = <span class="hljs-built_in">Math</span>.ceil(duringRel / timeStepRel);<br>  <span class="hljs-keyword">var</span> step = <span class="hljs-built_in">parseFloat</span>(((end - startRel) / timeCount).toFixed(decimalPonit));<br>  <span class="hljs-keyword">var</span> timer = <span class="hljs-literal">null</span>;<br>  timer = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    result += step;<br><br>    <span class="hljs-keyword">if</span> (step &gt; <span class="hljs-number">0</span> &amp;&amp; result &gt;= end) &#123;<br>      result = end;<br>      <span class="hljs-built_in">clearInterval</span>(timer);<br>      timer = <span class="hljs-literal">null</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (step &lt; <span class="hljs-number">0</span> &amp;&amp; result &lt;= start) &#123;<br>      result = start;<br>      <span class="hljs-built_in">clearInterval</span>(timer);<br>      timer = <span class="hljs-literal">null</span>;<br>    &#125;<br><br>    $(selector).text(result.toFixed(decimalPonit));<br>  &#125;, timeStepRel);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>调用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 调用：</span><br>changeDomNum(<br>  <span class="hljs-string">&#x27;#downloadsNum&#x27;</span>, <br>  &#123;<span class="hljs-attr">start</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">end</span>: <span class="hljs-number">123.5</span>, <span class="hljs-attr">duration</span>: <span class="hljs-number">2000</span>, <span class="hljs-attr">timeStep</span>: <span class="hljs-number">50</span>&#125;<br>);<br></code></pre></td></tr></table></figure>
-<p>效果：</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/4ef4a0ad66e3dd667c8d9bf6d993221a.gif#pic_center" srcset="/img/loading.gif" lazyload></p>
-<hr>
-
-<p><em><strong>欢迎关注我的公众号，公众号将第一时间更新angular教程：</strong></em><br><img src="https://img-blog.csdnimg.cn/img_convert/2ed94c3f0147a84d6e24a0625dacbb40.png#pic_center#pic_center" srcset="/img/loading.gif" lazyload></p>
+<p>安装成功后需要引入boot的样式文件，修改<em><strong>styles.scss</strong></em> 文件：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// styles.scss</span><br><span class="hljs-comment">// 添加下面代码到文件顶部</span><br><span class="hljs-meta">@import</span> <span class="hljs-string">&#x27;~bootstrap&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>引入JS文件，在<em><strong>main.ts</strong></em>中引入bootstrap：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;bootstrap&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>清空src/app/app.component.html文件，并添加下面代码，来验证bootstrap是否安装成功：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- app.component.html --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;alert alert-primary&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;alert&quot;</span>&gt;</span><br>  A simple primary alert—check it out!<br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary dropdown-toggle&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;dropdownMenuButton&quot;</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">&quot;dropdown&quot;</span> <span class="hljs-attr">aria-haspopup</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span><br>    Dropdown button<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-menu&quot;</span> <span class="hljs-attr">aria-labelledby</span>=<span class="hljs-string">&quot;dropdownMenuButton&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-item&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-item&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Another action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-item&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Something else here<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>页面已经运用上bootstrap的样式则安装成功</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c077b44809ab1506bf26426b66fef980.png#pic_center" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<p>至此，angular10 的环境配置全部完成，顺便还装了一个bootstrap～</p>
+</blockquote>
+<blockquote>
+<p><em><strong>还有一件重要的事，欢迎大家关注我的公众号，</strong>公众号会最先更新</em>****</p>
+</blockquote>
+<blockquote>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2ed94c3f0147a84d6e24a0625dacbb40.png#pic_center" srcset="/img/loading.gif" lazyload></p>
+</blockquote>
 
             </div>
             <hr>
@@ -256,7 +278,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/javascript/">javascript</a>
+                      <a class="hover-with-bg" href="/categories/angular/">angular</a>
                     
                   </div>
                 
@@ -264,7 +286,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E5%AD%97%E5%8F%98%E5%8C%96%E5%8A%A8%E7%94%BB/">数字变化动画</a>
+                      <a class="hover-with-bg" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">环境搭建</a>
+                    
+                      <a class="hover-with-bg" href="/tags/bootstrap/">bootstrap</a>
                     
                   </div>
                 
@@ -281,9 +305,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/angular/init/">
+                      <a href="/angular/ngif-ngswitch-ngfor/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Angular 环境搭建</span>
+                        <span class="hidden-mobile">Angular ngif ngswitch ngfor</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -291,8 +315,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/angular/auth/">
-                        <span class="hidden-mobile">Angular 权限管理</span>
+                      <a href="/javascript/number-animate/">
+                        <span class="hidden-mobile">Number Animate--JS快速改变页面数字变化过程动画</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
